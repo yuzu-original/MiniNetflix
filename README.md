@@ -48,9 +48,31 @@
 
 ## 📌 ToDo:
 - [x] make models
+  - [x] directors
+  - [x] genres
+  - [x] movies
+  - [x] users
+  - [x] favourites
 - [x] make dao
+  - [x] directors
+  - [x] genres
+  - [x] movies
+  - [x] users
+  - [x] favourites
 - [x] make services
+  - [x] directors
+  - [x] genres
+  - [x] movies
+  - [x] auth
+  - [x] users
+  - [x] favourites
 - [x] make views
+  - [x] directors
+  - [x] genres
+  - [x] movies
+  - [x] auth
+  - [x] users
+  - [x] favourites
 - [ ] write comments
 
 
