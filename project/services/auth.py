@@ -12,6 +12,7 @@ class AuthService:
         self.user_service = user_service
 
     def generate_tokens(self, email, password, is_refresh=False):
+        """generate access_token and refresh_token"""
         user = self.user_service.get_by_email(email)
 
         if not is_refresh:
@@ -38,12 +39,14 @@ class AuthService:
         }
 
     def get_email(self, refresh_token):
+        """get email by refresh token"""
         data = jwt.decode(refresh_token,
                             current_app.config.get('JWT_SECRET'),
                             algorithms=[current_app.config.get('JWT_ALGORITHM')])
         return data.get('email')
 
     def approve_token(self, refresh_token):
+        """approve token"""
         email = self.get_email(refresh_token)
         
         return self.generate_tokens(email, None, is_refresh=True)

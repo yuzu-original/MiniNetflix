@@ -8,12 +8,14 @@ from project.services.base import BaseService
 
 class UserService(BaseService):
     def get_by_email(self, email):
+        """get user by email"""
         user = self.dao.get_by_email(email)
         if not user:
             abort(404)
         return user
 
     def create(self, data):
+        """create user"""
         user = self.dao.get_by_email(data.get('email'))
         if user:
             abort(400)
@@ -22,6 +24,7 @@ class UserService(BaseService):
         return self.dao.create(data)
 
     def update_info(self, data, email):
+        """update user info (name, surname, favourite genre)"""
         self.get_by_email(email) # abort if user not found
         
         if 'password' not in data.keys() and 'email' not in data.keys():
@@ -30,6 +33,7 @@ class UserService(BaseService):
             abort(405)
 
     def update_password(self, data, email):
+        """update user password"""
         user = self.get_by_email(email)
         old_password = data.get('old_password')
         new_password = data.get('new_password')
@@ -44,6 +48,7 @@ class UserService(BaseService):
 
 
     def create_hash(self, password):
+        """create password hash"""
         return base64.b64encode(hashlib.pbkdf2_hmac(
             'sha256',
             password.encode('utf-8'),
@@ -52,6 +57,7 @@ class UserService(BaseService):
             ))
 
     def compare_passwords(self, password_hash, other_password):
+        """compare passwords"""
         return hmac.compare_digest(
             base64.b64decode(password_hash),
             hashlib.pbkdf2_hmac('sha256', other_password.encode(), current_app.config.get('PWD_HASH_SALT'), current_app.config.get('PWD_HASH_ITERATIONS'))

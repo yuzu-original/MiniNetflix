@@ -11,9 +11,11 @@ class BaseDAO:
         self.model = model
 
     def get_one(self, pk):
+        """get item by id"""
         return self.session.query(self.model).get(pk)
 
     def get_all(self, page = None, do_sort = False):
+        """get all items"""
         content = self.session.query(self.model)
 
         if do_sort:
@@ -24,6 +26,7 @@ class BaseDAO:
         return content.all()
     
     def create(self, data):
+        """create item"""
         item = self.model(**data)
         self.session.add(item)
         self.session.commit()
