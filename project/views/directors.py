@@ -11,6 +11,7 @@ director_schema = DirectorSchema()
 
 @director_ns.route('/')
 class DirectorsViews(Resource):
+    @director_ns.doc(description='Get all directors', params={'page': 'Page number'})
     def get(self):
         page = request.args.get('page', type=int)
 
@@ -19,6 +20,7 @@ class DirectorsViews(Resource):
 
 @director_ns.route('/<int:director_id>/')
 class DirectorView(Resource):
+    @director_ns.doc(description='Get director by id')
     def get(self, director_id):
         director = director_service.get_one(director_id)
         return director_schema.dump(director), 200

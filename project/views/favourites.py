@@ -12,6 +12,7 @@ movies_schema = MovieSchema(many=True)
 
 @favourite_ns.route('/movies/')
 class FavouritesViews(Resource):
+    @favourite_ns.doc(description='Get user favourites')
     def get(self):
         auth_data = request.headers['Authorization']
         token = auth_data.split("Bearer ")[-1]
@@ -26,6 +27,7 @@ class FavouritesViews(Resource):
 
 @favourite_ns.route('/movies/<int:movie_id>/')
 class FavouriteView(Resource):
+    @favourite_ns.doc(description='Add favourites')
     def post(self, movie_id):
         auth_data = request.headers['Authorization']
         token = auth_data.split("Bearer ")[-1]
@@ -38,7 +40,7 @@ class FavouriteView(Resource):
         return "", 200
 
 
-
+    @favourite_ns.doc(description='Delete favourites')
     def delete(self, movie_id):
         auth_data = request.headers['Authorization']
         token = auth_data.split("Bearer ")[-1]

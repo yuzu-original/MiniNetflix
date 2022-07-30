@@ -8,6 +8,7 @@ auth_ns = Namespace('auth')
 
 @auth_ns.route('/register/')
 class AuthRegView(Resource):
+    @auth_ns.doc(description='User registration')
     def post(self):
         email = request.json.get('email')
         password = request.json.get('password')
@@ -27,6 +28,7 @@ class AuthRegView(Resource):
 
 @auth_ns.route('/login/')
 class AuthLogView(Resource):
+    @auth_ns.doc(description='Get tokens')
     def post(self):
         email = request.json.get('email')
         password = request.json.get('password')
@@ -37,7 +39,7 @@ class AuthLogView(Resource):
         return auth_service.generate_tokens(email, password), 201
 
 
-
+    @auth_ns.doc(description='Get new tokens')
     def put(self):
         refresh_token = request.json.get('refresh_token')
         

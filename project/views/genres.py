@@ -11,6 +11,7 @@ genre_schema = GenreSchema()
 
 @genre_ns.route('/')
 class GenresViews(Resource):
+    @genre_ns.doc(description='Get all genres', params={'page': 'Page number'})
     def get(self):
         page = request.args.get('page', type=int)
 
@@ -19,6 +20,7 @@ class GenresViews(Resource):
 
 @genre_ns.route('/<int:gid>/')
 class GenreView(Resource):
+    @genre_ns.doc(description='Get genre by id')
     def get(self, gid):
         genre = genre_service.get_one(gid)
         return genre_schema.dump(genre), 200

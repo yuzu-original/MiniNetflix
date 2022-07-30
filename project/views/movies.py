@@ -11,6 +11,10 @@ movie_schema = MovieSchema()
 
 @movie_ns.route('/')
 class MoviesViews(Resource):
+    @movie_ns.doc(description='Get all movies', params={
+        'page': 'Page number',
+        'status': 'if "new": sort by release year'
+        })
     def get(self):
         page = request.args.get('page', type=int)
         status = request.args.get('status')
@@ -22,6 +26,7 @@ class MoviesViews(Resource):
 
 @movie_ns.route('/<int:mid>/')
 class MovieView(Resource):
+    @movie_ns.doc(description='Get movie by id')
     def get(self, mid):
         movie = movie_service.get_one(mid)
         return movie_schema.dump(movie), 200
