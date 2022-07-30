@@ -1,7 +1,5 @@
 # SkyPro Coursework 4
 
-# Homework-19
-
 ## ⚡ Quick Setup
 
 ### Windows
